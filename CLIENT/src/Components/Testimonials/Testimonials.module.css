@@ -1,0 +1,16 @@
+.Testimonials{
+    width: 100%;
+    background-color: var(--accent-color);
+    height: 6rem;
+    margin-bottom: 10rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.TestimonialsText{
+    color: var(--color-ivory);
+    font-size: 3rem;
+    font-style: italic;
+    font-weight: 400;
+}
