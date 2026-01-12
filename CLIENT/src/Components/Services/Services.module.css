@@ -1,0 +1,50 @@
+.Services {
+    width: 100%;
+}
+
+.MainServiceHeading{
+    text-align: center;
+    color: var(--primary-text-color);
+    font-size: 3rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+}
+
+.Highlights{
+    color: var(--accent-color);
+    text-shadow: 0 0 20px rgba(76, 175, 80, 0.4), 0 0 40px rgba(76, 175, 80, 0.3), 0 0 60px rgba(76, 175, 80, 0.2), 0 0 80px rgba(76, 175, 80, 0.1);
+}
+
+.CardHolder{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10rem;
+}
+
+.Card{
+    width: 25%;
+    color: var(--primary-text-color);
+    background-color: var(--dark-background-color);
+    padding: 1.5rem;
+    border-radius: 2rem;
+    box-shadow: 0 0 20px rgba(10, 10, 10, 0.8), 0 0 30px rgba(10, 10, 10, 0.7);
+    transition: transform 0.3s ease;
+    will-change: transform;
+}
+
+.Card:hover{
+    transform: translateY(-5px);
+    border: 2px solid var(--accent-color);
+}
+
+.CardHeading{
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 1.8rem;
+}
+
+.CardP{
+    font-size: 1.3rem;
+    margin-bottom: 0.6rem;
+}
