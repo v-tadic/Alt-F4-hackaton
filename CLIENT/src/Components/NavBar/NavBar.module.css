@@ -18,6 +18,7 @@
 
 .Links a{
     transition: transform 0.3s ease;
+    cursor: pointer;
 }
 
 .Links a:hover{

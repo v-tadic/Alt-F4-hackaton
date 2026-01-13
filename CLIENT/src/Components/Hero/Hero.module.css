@@ -59,6 +59,7 @@
     font-size: 1.2rem;
     transition: transform 0.3s ease;
     animation: GlowEfekat 4.5s ease-in-out infinite;
+    cursor: pointer;
 }
 
 .CtaButton:hover{

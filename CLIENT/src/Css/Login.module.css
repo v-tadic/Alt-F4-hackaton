@@ -1,0 +1,100 @@
+@keyframes GlowEfekat {
+    0% {
+        box-shadow:
+                0 6px 18px rgba(76, 175, 80, 0.25),
+                0 0 10px rgba(76, 175, 80, 0.15);
+    }
+    50% {
+        box-shadow:
+                0 10px 28px rgba(76, 175, 80, 0.35),
+                0 0 18px rgba(76, 175, 80, 0.25);
+    }
+    100% {
+        box-shadow:
+                0 6px 18px rgba(76, 175, 80, 0.25),
+                0 0 10px rgba(76, 175, 80, 0.15);
+    }
+}
+
+
+.Container {
+    background-color: var(--background-color);
+    color: var(--primary-text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 2rem;
+}
+
+.FormContainer {
+    background-color: var(--dark-background-color);
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 30rem;
+}
+
+.InputField {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    background-color: var(--color-ivory);
+    border: 1px solid var(--secondary-text-color);
+    border-radius: 0.5rem;
+    color: var(--primary-text-color);
+    font-size: 1rem;
+}
+
+.InputField:focus {
+    border-color: var(--accent-color);
+    outline: none;
+}
+
+.Button {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--accent-color);
+    color: var(--color-white);
+    cursor: pointer;
+    border: 2px solid var(--accent-color);
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    animation: GlowEfekat 4.5s ease-in-out infinite;
+    position: relative;
+}
+
+.Button:hover {
+    background-color: var(--background-color);
+    color: var(--accent-color);
+    transition: 0.2s;
+}
+
+.ButtomButtonDiv{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.ToggleLogin {
+    background: none;
+    color: var(--accent-color);
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    display: block;
+}
+
+.ToggleLogin:hover {
+    color: var(--primary-text-color);
+}
+
+.Title {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 2rem;
+}
