@@ -28,7 +28,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 8rem;
+    margin-bottom: 6rem;
 }
 
 .Card{
@@ -57,3 +57,39 @@
     font-size: 1.3rem;
     margin-bottom: 0.6rem;
 }
+
+@media screen and (max-width: 768px) {
+    .Services {
+        transform: translateY(10px);
+    }
+
+    .MainServiceHeading {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .CardHolder {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .Card {
+        width: 100%;
+        padding: 1.2rem;
+        border-radius: 0;
+        box-shadow: 0 0 18px rgba(10, 10, 10, 0.8), 0 0 25px rgba(10, 10, 10, 0.7);
+        margin-bottom: 1rem;
+    }
+
+    .CardHeading {
+        font-size: 1.3rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .CardP {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+}
+

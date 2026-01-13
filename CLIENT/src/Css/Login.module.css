@@ -98,3 +98,27 @@
     text-align: center;
     margin-bottom: 2rem;
 }
+
+.LoginHeader{
+    color: var(--accent-color);
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 600px) {
+    .ButtomButtonDiv {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .ToggleLogin,
+    .BackToHome {
+        width: 100%;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+
+    .Title {
+        font-size: 1.3rem;
+    }
+}

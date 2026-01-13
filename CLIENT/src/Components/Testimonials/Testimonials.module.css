@@ -15,3 +15,15 @@
     font-style: italic;
     font-weight: 400;
 }
+
+@media screen and (max-width: 768px) {
+    .Testimonials {
+        height: 5rem;
+        padding: 1.5rem;
+    }
+
+    .TestimonialsText {
+        font-size: 1.3rem;
+        text-align: center;
+    }
+}

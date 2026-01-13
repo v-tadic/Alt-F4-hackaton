@@ -30,7 +30,7 @@
     justify-content: center;
     align-items: center;
     height: 40vh;
-    margin-bottom: 8rem;
+    margin-bottom: 6rem;
     transform: translateY(24px);
     animation: FadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
@@ -73,4 +73,33 @@
     color: var(--accent-color);
     font-family: 'Lora', serif;
 }
+
+@media screen and (max-width: 768px) {
+    .Hero {
+        height: 50vh;
+        margin-bottom: 4rem;
+        padding: 0 1rem;
+    }
+
+    .HeroHeading {
+        font-size: 3.5rem;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+
+    .HeroQuote {
+        font-size: 1.3rem;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .CtaButton {
+        width: 10rem;
+        height: 3.5rem;
+        font-size: 1.1rem;
+        border-radius: 1.5rem;
+        padding: 0.8rem 1.2rem;
+    }
+}
+
 

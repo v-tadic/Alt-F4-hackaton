@@ -54,3 +54,28 @@
 .Highlight{
     color: var(--accent-color);
 }
+
+@media screen and (max-width: 768px) {
+    .FinalCta {
+        margin-bottom: 4rem;
+    }
+
+    .FinalCta h3 {
+        font-size: 2.5rem;
+        margin: 1rem;
+    }
+
+    .FinalCta button {
+        width: 8rem;
+        height: 3.5rem;
+        font-size: 1.1rem;
+        border-radius: 1.5rem;
+    }
+
+    .FinalCta button:hover {
+        transform: none;
+        background-color: var(--accent-color);
+        border: transparent;
+        color: var(--background-color);
+    }
+}

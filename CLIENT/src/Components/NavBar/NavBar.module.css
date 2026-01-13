@@ -31,3 +31,25 @@
     font-size: 1.5rem;
     color: var(--accent-color);
 }
+
+@media screen and (max-width: 768px) {
+    .NavBar {
+        height: 3rem;
+        padding: 0 1rem;
+    }
+
+    .Links {
+        width: auto;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .Links a {
+        font-size: 0.9rem;
+    }
+
+    .Aplikacija {
+        font-size: 1.2rem;
+        margin-left: 0.5rem;
+    }
+}
