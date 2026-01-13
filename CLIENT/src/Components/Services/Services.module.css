@@ -38,12 +38,12 @@
     padding: 1.5rem;
     border-radius: 2rem;
     box-shadow: 0 0 20px rgba(10, 10, 10, 0.8), 0 0 30px rgba(10, 10, 10, 0.7);
-    transition: transform 0.3s ease;
     will-change: transform;
+    border: 2px solid var(--dark-background-color);
+    transition: 0.2s;
 }
 
 .Card:hover{
-    transform: translateY(-5px);
     border: 2px solid var(--accent-color);
 }
 
