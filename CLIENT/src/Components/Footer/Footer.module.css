@@ -1,9 +1,0 @@
-.Footer{
-    display: flex;
-    align-items: center;
-    width: 100%;
-}
-
-.Footer p{
-    color: var(--primary-text-color);
-}
