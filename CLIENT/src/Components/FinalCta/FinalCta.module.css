@@ -16,42 +16,24 @@
     }
 }
 
-@keyframes FadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-
-.Hero{
+.FinalCta{
     display: flex;
-    flex-direction: column;
+    width: 100%;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 40vh;
-    margin-bottom: 8rem;
-    transform: translateY(24px);
-    animation: FadeIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    margin-bottom: 5rem;
 }
 
-.HeroHeading{
-    font-size: 5rem;
+.FinalCta h3{
     color: var(--primary-text-color);
-    margin-bottom: 1.5rem;
+    font-size: 3rem;
+    margin: 1.5rem;
 }
 
-.HeroQuote{
-    font-size: 1.5rem;
-    color: var(--secondary-text-color);
-    margin-bottom: 2rem;
-    font-family: 'Lora', serif;
-    font-style: italic;
-}
-
-.CtaButton{
-    width: 8rem;
-    height: 3rem;
+.FinalCta button{
+    width: 10rem;
+    height: 4rem;
     background-color: var(--accent-color);
     color: var(--background-color);
     border: transparent;
@@ -61,15 +43,13 @@
     animation: GlowEfekat 4.5s ease-in-out infinite;
 }
 
-.CtaButton:hover{
+.FinalCta button:hover{
     background-color: var(--background-color);
     border: 2px solid var(--accent-color);
     color: var(--accent-color);
     transform: translateY(-5px);
 }
 
-.Highlight {
+.Highlight{
     color: var(--accent-color);
-    font-family: 'Lora', serif;
 }
-

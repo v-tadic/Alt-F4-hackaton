@@ -2,10 +2,11 @@
     width: 100%;
     background-color: var(--accent-color);
     height: 6rem;
-    margin-bottom: 10rem;
+    margin-bottom: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 1rem;
 }
 
 .TestimonialsText{
