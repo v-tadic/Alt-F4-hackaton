@@ -1,0 +1,63 @@
+.Holder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: var(--background-color);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--dark-background-color);
+    padding: 1.3rem;
+    border-radius: 0.6rem;
+    width: 100%;
+    max-width: 25rem;
+    box-sizing: border-box;
+}
+
+.Form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.3rem;
+    width: 100%;
+}
+
+input {
+    padding: 0.6rem;
+    margin-right: 0.6rem;
+    border: 0.1rem solid var(--secondary-text-color);
+    border-radius: 0.3rem;
+    background-color: var(--color-ivory);
+    color: var(--primary-text-color);
+    flex: 1;
+}
+
+button {
+    padding: 0.6rem 1.3rem;
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 0.3rem;
+    color: var(--color-white);
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.task-list {
+    width: 100%;
+}
+
+.task-item {
+    background-color: var(--color-ivory);
+    margin: 0.6rem 0;
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+    color: var(--primary-text-color);
+}
