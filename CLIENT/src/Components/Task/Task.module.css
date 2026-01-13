@@ -1,0 +1,13 @@
+.MainTask{
+    width: 20rem;
+    height: 6rem;
+    background-color: var(--dark-background-color);
+    border-radius: 1rem;
+    margin: 1rem;
+    padding: 1rem;
+    color: var(--primary-text-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--accent-color);
+}
