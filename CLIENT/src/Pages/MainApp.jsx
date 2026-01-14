@@ -9,58 +9,82 @@ function MainApp() {
     const [newTask, setNewTask] = useState("");
 
     useEffect(() => {
-        fetch(`${API_URL}/activities`)
-            .then(res => res.json())
-            .then(data => setTasks(data))
-            .catch(err => console.error(err));
+        const fetchTasks = async () => {
+            try {
+                const res = await fetch(`${API_URL}/activities`);
+                const data = await res.json();
+                setTasks(data);
+            } catch (err) {
+                console.error(err);
+            }
+        };
+
+        fetchTasks();
     }, []);
 
-    function AddTask(e) {
+    const AddTask = async (e) => {
         e.preventDefault();
         if (newTask.trim() === "") return;
 
-        fetch(`${API_URL}/activities`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ text: newTask })
-        })
-            .then(res => res.json())
-            .then(data => {
-                setTasks([...tasks, data]);
-                setNewTask("");
+        try {
+            const res = await fetch(`${API_URL}/activities`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ text: newTask }),
             });
-    }
 
-    function toggleDone(id, done) {
-        fetch(`${API_URL}/activities/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ done: done ? 0 : 1 })
-        }).then(() => {
-            setTasks(tasks.map(task =>
-                task.id === id ? { ...task, done: done ? 0 : 1 } : task
-            ));
-        });
-    }
+            const data = await res.json();
+            setTasks([...tasks, data]);
+            setNewTask("");
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
-    function deleteTask(id) {
-        fetch(`${API_URL}/activities/${id}`, {
-            method: "DELETE"
-        }).then(() => {
+    const toggleDone = async (id, done) => {
+        try {
+            await fetch(`${API_URL}/activities/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ done: done ? 0 : 1 }),
+            });
+
+            setTasks(
+                tasks.map(task =>
+                    task.id === id
+                        ? { ...task, done: done ? 0 : 1 }
+                        : task
+                )
+            );
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    const deleteTask = async (id) => {
+        try {
+            await fetch(`${API_URL}/activities/${id}`, {
+                method: "DELETE",
+            });
+
             setTasks(tasks.filter(task => task.id !== id));
-        });
-    }
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     return (
         <div className={styles.Holder}>
             <div className={styles.content}>
                 <form onSubmit={AddTask} className={styles.Form}>
                     <input type="text" placeholder="Add new habit" value={newTask} onChange={(e) => setNewTask(e.target.value)}/>
-                    <button type="submit">Add Habit</button>
+                    <button type="submit" className={styles.SubmitButton}>
+                        Add Habit
+                    </button>
                 </form>
 
                 <div className={styles.taskList}>

@@ -36,7 +36,7 @@ input {
     flex: 1;
 }
 
-button {
+.SubmitButton {
     padding: 0.6rem 1.3rem;
     background-color: var(--accent-color);
     border: none;
@@ -46,7 +46,7 @@ button {
     transition: background-color 0.3s;
 }
 
-button:hover {
+.SubmitButton:hover {
     background-color: #45a049;
 }
 
