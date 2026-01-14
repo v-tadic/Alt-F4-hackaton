@@ -82,9 +82,7 @@ function MainApp() {
             <div className={styles.content}>
                 <form onSubmit={AddTask} className={styles.Form}>
                     <input type="text" placeholder="Add new habit" value={newTask} onChange={(e) => setNewTask(e.target.value)}/>
-                    <button type="submit" className={styles.SubmitButton}>
-                        Add Habit
-                    </button>
+                    <button type="submit" className={styles.SubmitButton}>Add Habit</button>
                 </form>
 
                 <div className={styles.taskList}>
