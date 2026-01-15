@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "../Css/Login.module.css";
 
+const API_URL = "http://localhost:3000";
+
 function LoginPage() {
     const [isLogIn, setIsLogIn] = useState(true);
     const [email, setEmail] = useState("");
@@ -18,7 +20,7 @@ function LoginPage() {
         e.preventDefault();
 
         try {
-            const res = await fetch("http://localhost:3000/login", {
+            const res = await fetch(`${API_URL}/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password })
@@ -31,12 +33,11 @@ function LoginPage() {
                 return;
             }
 
-            // Sačuvaj user podatke
             localStorage.setItem("userId", data.userId);
             localStorage.setItem("username", data.username);
 
             alert("Uspešno logovanje!");
-            navigate("/"); // ili /dashboard
+            navigate("/");
         } catch (err) {
             console.error(err);
             alert("Greška sa serverom");
@@ -47,7 +48,7 @@ function LoginPage() {
         e.preventDefault();
 
         try {
-            const res = await fetch("http://localhost:3000/signup", {
+            const res = await fetch(`${API_URL}/signup`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ username, email, password })
@@ -95,7 +96,7 @@ function LoginPage() {
                     </form>
 
                     <div className={styles.ButtomButtonDiv}>
-                        <button onClick={handleLoginChange} className={styles.ToggleLogin}></button>
+                        <button onClick={handleLoginChange} className={styles.ToggleLogin}>Log In Instead</button>
                         <Link to="/">Back To Home</Link>
                     </div>
                 </div>
