@@ -14,10 +14,17 @@ function LoginPage() {
 
     function handleLoginChange() {
         setIsLogIn(!isLogIn);
+        setEmail("");
+        setPassword("");
+        setUsername("");
     }
 
     async function handleLogin(e) {
         e.preventDefault();
+        if (!email || !password) {
+            alert("Molimo popunite sva polja");
+            return;
+        }
 
         try {
             const res = await fetch(`${API_URL}/login`, {
@@ -46,6 +53,10 @@ function LoginPage() {
 
     async function handleSignup(e) {
         e.preventDefault();
+        if (!username || !email || !password) {
+            alert("Molimo popunite sva polja");
+            return;
+        }
 
         try {
             const res = await fetch(`${API_URL}/signup`, {
@@ -79,7 +90,6 @@ function LoginPage() {
                         <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Your Password" className={styles.InputField}/>
                         <button type="submit" className={styles.Button}>Login</button>
                     </form>
-
                     <div className={styles.ButtomButtonDiv}>
                         <button onClick={handleLoginChange} className={styles.ToggleLogin}>Sign Up Instead</button>
                         <Link to="/">Back To Home</Link>
@@ -89,12 +99,11 @@ function LoginPage() {
                 <div className={styles.FormContainer}>
                     <h2 className={styles.LoginHeader}>Sign Up</h2>
                     <form onSubmit={handleSignup}>
+                        <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="Enter Your Username" className={styles.InputField}/>
                         <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter Your Email" className={styles.InputField}/>
                         <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Your Password" className={styles.InputField}/>
-                        <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="Enter Your Username" className={styles.InputField}/>
                         <button type="submit" className={styles.Button}>Sign Up</button>
                     </form>
-
                     <div className={styles.ButtomButtonDiv}>
                         <button onClick={handleLoginChange} className={styles.ToggleLogin}>Log In Instead</button>
                         <Link to="/">Back To Home</Link>
