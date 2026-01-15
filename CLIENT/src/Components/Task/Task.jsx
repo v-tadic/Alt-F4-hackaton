@@ -14,9 +14,7 @@ function Task({ habit, done, streakGoal, currentStreak, onExtend, onDelete }) {
             {/* Info */}
             {streakGoal > 0 && (
                 <div className={styles.infoRow}>
-                    <span className={styles.streak}>
-                        🔥 {currentStreak} / {streakGoal}
-                    </span>
+                    <span className={styles.streak}>🔥 {currentStreak} / {streakGoal}</span>
 
                     {completed && (
                         <span className={styles.completed}>Completed ✅</span>
@@ -26,9 +24,7 @@ function Task({ habit, done, streakGoal, currentStreak, onExtend, onDelete }) {
 
             {/* Actions */}
             {streakGoal > 0 && !completed && (
-                <button className={styles.extendBtn} onClick={onExtend}>
-                    Extend streak
-                </button>
+                <button className={styles.extendBtn} onClick={onExtend}>Extend streak</button>
             )}
         </div>
     );

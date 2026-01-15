@@ -9,7 +9,6 @@
     color: var(--primary-text-color);
 }
 
-/* Header */
 .header {
     display: flex;
     justify-content: space-between;
@@ -28,7 +27,6 @@
     color: var(--secondary-text-color);
 }
 
-/* Info row */
 .infoRow {
     display: flex;
     justify-content: space-between;
@@ -45,7 +43,6 @@
     font-weight: 500;
 }
 
-/* Buttons */
 .extendBtn {
     align-self: flex-start;
     padding: 0.45rem 1rem;
