@@ -15,9 +15,7 @@ app.use(express.json());
 // Konekcija sa bazom
 // =========================
 const dbPath = path.resolve(__dirname, "database.db");
-
-// Ako želiš da testiraš čisto, možeš obrisati staru bazu
-// fs.unlinkSync(dbPath); // Otkomenituj ako želiš brisanje stare baze pri svakom startu
+// fs.unlinkSync(dbPath); // Ako želiš brisanje stare baze pri svakom startu
 
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
@@ -44,7 +42,7 @@ db.run(`
 `);
 
 // =========================
-// ACTIVITIES tabela
+// ACTIVITIES tabela sa streak
 // =========================
 db.run(`
   CREATE TABLE IF NOT EXISTS activities (
@@ -52,6 +50,8 @@ db.run(`
     userId INTEGER NOT NULL,
     text TEXT NOT NULL,
     done INTEGER NOT NULL DEFAULT 0,
+    streak_goal INTEGER DEFAULT 0,
+    current_streak INTEGER DEFAULT 0,
     FOREIGN KEY (userId) REFERENCES users(userId) ON DELETE CASCADE
   )
 `);
@@ -64,8 +64,6 @@ app.get("/", (req, res) => res.send("Backend radi 💪"));
 // =========================
 // USERS rute
 // =========================
-
-// Prikaz svih korisnika
 app.get("/users", (req, res) => {
   db.all("SELECT userId, username, email FROM users", (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -73,36 +71,25 @@ app.get("/users", (req, res) => {
   });
 });
 
-// Signup
 app.post("/signup", (req, res) => {
   const { username, email, password } = req.body;
   if (!username || !email || !password)
     return res.status(400).json({ error: "Sva polja su obavezna" });
 
-  db.get(
-    "SELECT userId FROM users WHERE email = ? OR username = ?",
-    [email, username],
-    (err, row) => {
-      if (err) return res.status(500).json({ error: err.message });
-      if (row) return res.status(409).json({ error: "Korisnik već postoji" });
+  db.get("SELECT userId FROM users WHERE email = ? OR username = ?", [email, username], (err, row) => {
+    if (err) return res.status(500).json({ error: err.message });
+    if (row) return res.status(409).json({ error: "Korisnik već postoji" });
 
-      db.run(
-        "INSERT INTO users (username, email, password) VALUES (?, ?, ?)",
-        [username, email, password],
-        function (err) {
-          if (err) return res.status(500).json({ error: err.message });
-          res.status(201).json({ message: "Korisnik registrovan", userId: this.lastID });
-        }
-      );
-    }
-  );
+    db.run("INSERT INTO users (username, email, password) VALUES (?, ?, ?)", [username, email, password], function (err) {
+      if (err) return res.status(500).json({ error: err.message });
+      res.status(201).json({ message: "Korisnik registrovan", userId: this.lastID });
+    });
+  });
 });
 
-// Login
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  if (!email || !password)
-    return res.status(400).json({ error: "Email i password su obavezni" });
+  if (!email || !password) return res.status(400).json({ error: "Email i password su obavezni" });
 
   db.get("SELECT userId, username, password FROM users WHERE email = ?", [email], (err, user) => {
     if (err) return res.status(500).json({ error: err.message });
@@ -116,8 +103,6 @@ app.post("/login", (req, res) => {
 // =========================
 // ACTIVITIES rute
 // =========================
-
-// Prikaz svih aktivnosti jednog korisnika
 app.get("/activities/:userId", (req, res) => {
   const { userId } = req.params;
   db.all("SELECT * FROM activities WHERE userId = ?", [userId], (err, rows) => {
@@ -126,30 +111,50 @@ app.get("/activities/:userId", (req, res) => {
   });
 });
 
-// Dodavanje nove aktivnosti
+// Dodavanje nove aktivnosti sa streak_goal
 app.post("/activities", (req, res) => {
-  const { userId, text } = req.body;
+  const { userId, text, streak_goal } = req.body;
   if (!userId || !text) return res.status(400).json({ error: "Nedostaju podaci" });
 
   db.run(
-    "INSERT INTO activities (userId, text, done) VALUES (?, ?, 0)",
-    [userId, text],
+    "INSERT INTO activities (userId, text, done, streak_goal, current_streak) VALUES (?, ?, 0, ?, 0)",
+    [userId, text, streak_goal || 0],
     function (err) {
       if (err) return res.status(500).json({ error: err.message });
-      res.status(201).json({ id: this.lastID, userId, text, done: 0 });
+      res.status(201).json({ 
+        id: this.lastID, 
+        userId, 
+        text, 
+        done: 0, 
+        streak_goal: streak_goal || 0, 
+        current_streak: 0 
+      });
     }
   );
 });
 
-// Update aktivnosti (oznaka done)
-app.put("/activities/:id", (req, res) => {
+// Update done i streak
+app.put("/activities/:id/done", (req, res) => {
   const { id } = req.params;
   const { done } = req.body;
   if (done !== 0 && done !== 1) return res.status(400).json({ error: "Done mora biti 0 ili 1" });
 
-  db.run("UPDATE activities SET done = ? WHERE id = ?", [done, id], function (err) {
+  db.get("SELECT current_streak, streak_goal FROM activities WHERE id = ?", [id], (err, activity) => {
     if (err) return res.status(500).json({ error: err.message });
-    res.json({ updated: this.changes });
+    if (!activity) return res.status(404).json({ error: "Task ne postoji" });
+
+    let new_streak = activity.current_streak;
+    if (done === 1) new_streak += 1;
+    else new_streak = 0;
+
+    db.run(
+      "UPDATE activities SET done = ?, current_streak = ? WHERE id = ?",
+      [done, new_streak, id],
+      function (err) {
+        if (err) return res.status(500).json({ error: err.message });
+        res.json({ updated: this.changes, current_streak: new_streak, streak_goal: activity.streak_goal });
+      }
+    );
   });
 });
 
