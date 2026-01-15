@@ -1,63 +1,102 @@
-import {useState} from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import styles from "../Css/Login.module.css";
 
-function LoginPage(){
+function LoginPage() {
     const [isLogIn, setIsLogIn] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
 
-    function handleLoginChange(){
+    const navigate = useNavigate();
+
+    function handleLoginChange() {
         setIsLogIn(!isLogIn);
     }
 
-    function handleEmailChange(e){
-        setEmail(e.target.value);
-    }
-
-    function handlePasswordChange(e){
-        setPassword(e.target.value);
-    }
-
-    function handleUsernameChange(e){
-        setUsername(e.target.value);
-    }
-
-    function handleSubmit(e){
+    async function handleLogin(e) {
         e.preventDefault();
-        setEmail("");
-        setPassword("");
-        setUsername("");
+
+        try {
+            const res = await fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data.error);
+                return;
+            }
+
+            // Sačuvaj user podatke
+            localStorage.setItem("userId", data.userId);
+            localStorage.setItem("username", data.username);
+
+            alert("Uspešno logovanje!");
+            navigate("/"); // ili /dashboard
+        } catch (err) {
+            console.error(err);
+            alert("Greška sa serverom");
+        }
+    }
+
+    async function handleSignup(e) {
+        e.preventDefault();
+
+        try {
+            const res = await fetch("http://localhost:3000/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, email, password })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                alert(data.error);
+                return;
+            }
+
+            alert("Registracija uspešna! Možeš se ulogovati.");
+            setIsLogIn(true);
+        } catch (err) {
+            console.error(err);
+            alert("Greška sa serverom");
+        }
     }
 
     return (
         <div className={styles.Container}>
             {isLogIn ? (
                 <div className={styles.FormContainer}>
-                    <h2 className={styles.LoginHeader}>Log In/Sign Up</h2>
-                    <form onSubmit={handleSubmit}>
-                        <input value={email} onChange={handleEmailChange} name="EmailLogIn" type="text" placeholder="Enter Your Email:" className={styles.InputField} />
-                        <input value={password} onChange={handlePasswordChange} name="PasswordLogIn" type="password" placeholder="Enter Your Password:" className={styles.InputField} />
-                        <button type="Submit" className={styles.Button}>Login</button>
+                    <h2 className={styles.LoginHeader}>Log In</h2>
+                    <form onSubmit={handleLogin}>
+                        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter Your Email" className={styles.InputField}/>
+                        <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Your Password" className={styles.InputField}/>
+                        <button type="submit" className={styles.Button}>Login</button>
                     </form>
+
                     <div className={styles.ButtomButtonDiv}>
-                        <button onClick={handleLoginChange} className={styles.ToggleLogin}>{isLogIn ? "Sign Up Instead" : "Log In Instead"}</button>
-                        <Link to={"/"}>Back To Home</Link>
+                        <button onClick={handleLoginChange} className={styles.ToggleLogin}>Sign Up Instead</button>
+                        <Link to="/">Back To Home</Link>
                     </div>
                 </div>
             ) : (
                 <div className={styles.FormContainer}>
-                    <h2 className={styles.LoginHeader}>Log In/Sign Up</h2>
-                    <form onSubmit={handleSubmit}>
-                        <input value={email} onChange={handleEmailChange} name="EmailSignUp" type="text" placeholder="Enter Your Email:" className={styles.InputField} />
-                        <input value={password} onChange={handlePasswordChange} name="PasswordSignUp" type="password" placeholder="Enter Your Password:" className={styles.InputField} />
-                        <input value={username} onChange={handleUsernameChange} name="Username" type="text" placeholder="Enter Your username:" className={styles.InputField} />
-                        <button type="Submit" className={styles.Button}>Sign Up</button>
+                    <h2 className={styles.LoginHeader}>Sign Up</h2>
+                    <form onSubmit={handleSignup}>
+                        <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter Your Email" className={styles.InputField}/>
+                        <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Enter Your Password" className={styles.InputField}/>
+                        <input value={username} onChange={(e) => setUsername(e.target.value)} type="text" placeholder="Enter Your Username" className={styles.InputField}/>
+                        <button type="submit" className={styles.Button}>Sign Up</button>
                     </form>
+
                     <div className={styles.ButtomButtonDiv}>
-                        <button onClick={handleLoginChange} className={styles.ToggleLogin}>{isLogIn ? "Sign Up Instead" : "Log In Instead"}</button>
-                        <Link to={"/"}>Back To Home</Link>
+                        <button onClick={handleLoginChange} className={styles.ToggleLogin}></button>
+                        <Link to="/">Back To Home</Link>
                     </div>
                 </div>
             )}
