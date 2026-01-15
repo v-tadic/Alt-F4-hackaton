@@ -8,10 +8,14 @@ function MainApp() {
     const [tasks, setTasks] = useState([]);
     const [newTask, setNewTask] = useState("");
 
+    const userId = localStorage.getItem("userId");
+
     useEffect(() => {
+        if (!userId) return; // Ako nema userId, ne radimo fetch
+
         const fetchTasks = async () => {
             try {
-                const res = await fetch(`${API_URL}/activities`);
+                const res = await fetch(`${API_URL}/activities/${userId}`);
                 const data = await res.json();
                 setTasks(data);
             } catch (err) {
@@ -20,11 +24,11 @@ function MainApp() {
         };
 
         fetchTasks();
-    }, []);
+    }, [userId]);
 
     const AddTask = async (e) => {
         e.preventDefault();
-        if (newTask.trim() === "") return;
+        if (newTask.trim() === "" || !userId) return;
 
         try {
             const res = await fetch(`${API_URL}/activities`, {
@@ -32,7 +36,7 @@ function MainApp() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ text: newTask }),
+                body: JSON.stringify({ text: newTask, userId: parseInt(userId) }),
             });
 
             const data = await res.json();
