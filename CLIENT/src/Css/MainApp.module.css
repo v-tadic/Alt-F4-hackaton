@@ -50,7 +50,7 @@ input {
     border: 0.1rem solid var(--secondary-text-color);
     border-radius: 2rem;
     background-color: var(--color-ivory);
-    color: var(--primary-text-color);
+    color: var(--accent-color);
     flex: 1;
 }
 

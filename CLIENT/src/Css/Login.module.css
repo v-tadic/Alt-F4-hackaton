@@ -43,7 +43,7 @@
     background-color: var(--color-ivory);
     border: 1px solid var(--secondary-text-color);
     border-radius: 0.5rem;
-    color: var(--primary-text-color);
+    color: var(--accent-color);
     font-size: 1rem;
 }
 
