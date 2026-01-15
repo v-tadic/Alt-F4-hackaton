@@ -1,23 +1,35 @@
 import styles from "./Task.module.css";
 
 function Task({ habit, done, streakGoal, currentStreak, onExtend, onDelete }) {
+    const completed = streakGoal > 0 && currentStreak >= streakGoal;
+
     return (
-        <div className={styles.MainTask}>
-            <h2 className={done === 1 ? styles.done : ""}>{habit}</h2>
+        <div className={styles.taskCard}>
+            {/* Header */}
+            <div className={styles.header}>
+                <h2 className={done === 1 ? styles.done : ""}>{habit}</h2>
+                <button className={styles.deleteBtn} onClick={onDelete}>✖</button>
+            </div>
 
+            {/* Info */}
             {streakGoal > 0 && (
-                <p>🔥 {currentStreak} / {streakGoal}</p>
+                <div className={styles.infoRow}>
+                    <span className={styles.streak}>
+                        🔥 {currentStreak} / {streakGoal}
+                    </span>
+
+                    {completed && (
+                        <span className={styles.completed}>Completed ✅</span>
+                    )}
+                </div>
             )}
 
-            {streakGoal > 0 && currentStreak < streakGoal && (
-                <button onClick={onExtend}>Extend streak</button>
+            {/* Actions */}
+            {streakGoal > 0 && !completed && (
+                <button className={styles.extendBtn} onClick={onExtend}>
+                    Extend streak
+                </button>
             )}
-
-            {streakGoal > 0 && currentStreak >= streakGoal && (
-                <span>Completed ✅</span>
-            )}
-
-            <button onClick={onDelete}>❌</button>
         </div>
     );
 }
