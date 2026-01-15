@@ -27,7 +27,10 @@ function MainApp() {
         e.preventDefault();
         if (!newTask.trim()) return;
 
-        const streakToSend = streakGoal === "0" || streakGoal === "" ? 1 : parseInt(streakGoal);
+        if (Number(streakGoal) <= 0) {
+            alert("Streak goal must be more than 0");
+            return;
+        }
 
         const res = await fetch(`${API_URL}/activities`, {
             method: "POST",
@@ -35,7 +38,7 @@ function MainApp() {
             body: JSON.stringify({
                 text: newTask,
                 userId: parseInt(userId),
-                streak_goal: streakToSend
+                streak_goal: parseInt(streakGoal)
             })
         });
 
