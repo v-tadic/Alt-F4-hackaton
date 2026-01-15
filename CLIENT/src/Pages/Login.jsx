@@ -22,7 +22,7 @@ function LoginPage() {
     async function handleLogin(e) {
         e.preventDefault();
         if (!email || !password) {
-            alert("Molimo popunite sva polja");
+            alert("Please fill out all fields");
             return;
         }
 
@@ -54,7 +54,7 @@ function LoginPage() {
     async function handleSignup(e) {
         e.preventDefault();
         if (!username || !email || !password) {
-            alert("Molimo popunite sva polja");
+            alert("Please fill out all fields");
             return;
         }
 
