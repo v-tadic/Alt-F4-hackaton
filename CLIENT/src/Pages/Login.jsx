@@ -37,7 +37,7 @@ function LoginPage() {
             localStorage.setItem("username", data.username);
 
             alert("Uspešno logovanje!");
-            navigate("/");
+            navigate("/main");
         } catch (err) {
             console.error(err);
             alert("Greška sa serverom");
