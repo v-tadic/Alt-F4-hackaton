@@ -4,7 +4,7 @@ import styles from "./NavBar.module.css";
 function NavBar(){
     return (
         <div className={styles.NavBar}>
-            <p className={styles.Aplikacija}>Aplikacija</p>
+            <p className={styles.Aplikacija}>Habitly</p>
             <div className={styles.Links}>
                 <Link to="/login"><p>Login</p></Link>
             </div>

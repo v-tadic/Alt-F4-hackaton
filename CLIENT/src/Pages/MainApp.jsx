@@ -27,6 +27,10 @@ function MainApp() {
         e.preventDefault();
         if (!newTask.trim()) return;
 
+        if (streakGoal === 0) {
+            setStreakGoal(1);
+        }
+
         const res = await fetch(`${API_URL}/activities`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
