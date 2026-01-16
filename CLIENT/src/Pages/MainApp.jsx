@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Task from "../Components/Task/Task.jsx";
 import styles from "../Css/MainApp.module.css";
 
@@ -79,6 +80,7 @@ function MainApp() {
                     <input type="number" placeholder="Streak goal" value={streakGoal} onChange={(e) => setStreakGoal(e.target.value)} min="0"/>
 
                     <button type="submit" className={styles.SubmitButton}>Add Habit</button>
+                    <Link to={"/"}><h4 className={styles.ReturnHome}>Return to home</h4></Link>
                 </form>
 
                 <div className={styles.taskList}>
