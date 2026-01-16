@@ -6,7 +6,7 @@ function NavBar(){
         <div className={styles.NavBar}>
             <p className={styles.Aplikacija}>Habitly</p>
             <div className={styles.Links}>
-                <Link to="/login"><p>Login</p></Link>
+                {localStorage.getItem("username") ? localStorage.getItem("username") : <Link to="/login"><p>Login</p></Link>}
             </div>
         </div>
     )
